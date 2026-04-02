@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Denuncias del Ciudadano</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">gob.pe</div>
+            <div class="header-title">Plataforma Digital Única de Denuncias del Ciudadano</div>
+        </div>
+    </header>
+
+    <nav class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="#">Inicio</a> > <a href="#">Servicios</a> > <span>Denuncias del Ciudadano</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1 class="main-title">Registrar Nueva Denuncia</h1>
+        <p class="subtitle">Complete el siguiente formulario para registrar el incidente. Los campos que se dejen vacíos no serán incluidos en su denuncia formal.</p>
+
+        <div class="info-box">
+            <div class="info-box-title">Información importante:</div>
+            <div class="info-box-text">
+                Sus datos personales serán tratados de manera confidencial según la Ley de Protección de Datos Personales N° 29733.
+                Recibirá un código de seguimiento al finalizar el registro.
+            </div>
+        </div>
+
+        <form id="denunciaForm">
+            <div class="form-card">
+                <h2 class="section-title">Datos del denunciante</h2>
+
+                <!-- Switch de anonimato -->
+                <div class="form-row" style="margin-bottom: 15px;">
+                    <label class="form-label" style="font-weight: bold; display: flex; align-items: first baseline; gap: 8px;">
+                        <input type="checkbox" id="anonSwitch" onchange="toggleAnonMode()">
+                        <div>
+                            Mantener mi denuncia anónima
+                            <p class="helper-text" style="font-size: 0.70rem; color: #6a6a6a; margin: 2px 0 0 0;">
+                                Si activas este modo, no tendrás que ingresar datos personales.
+                            </p>
+                        </div>
+                    </label>
+                </div>
+
+                <div id="datosDenunciante">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Documento</label>
+                            <select name="tipoDocumento" class="form-select">
+                                <option value="">Seleccione...</option>
+                                <option value="dni">DNI</option>
+                                <option value="ce">Carnet de Extranjería</option>
+                                <option value="pasaporte">Pasaporte</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Número de documento</label>
+                            <input type="text" name="numDocumento" class="form-input" placeholder="Ingrese su número de documento">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" name="nombres" class="form-input" placeholder="Ingrese sus nombres">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Apellidos</label>
+                            <input type="text" name="apellidos" class="form-input" placeholder="Ingrese sus apellidos">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Correo Electrónico</label>
+                            <input type="email" name="email" class="form-input optional" placeholder="ejemplo@correo.com">
+                            <p class="helper-text" style=" padding-top: 5px; padding-left: 8px; font-size: 0.50rem; color: #6a6a6a;">
+                                Opcional. Solo si deseas recibir actualizaciones del caso.
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" name="telefono" class="form-input optional" placeholder="999 999 999">
+                            <p class="helper-text" style=" padding-top: 5px; padding-left: 8px; font-size: 0.50rem; color: #6a6a6a;">
+                                Opcional. Solo si deseas que te contacten.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h2 class="section-title">Datos de la Denuncia</h2>
+                
+                <div class="form-group">
+                    <label class="form-label">Tipo de incidente<span class="required">*</span></label>
+                    <select name="tipoDenuncia" class="form-select" required>
+                        <option value="">Seleccione el tipo de denuncia...</option>
+                        <option value="robo">Robo</option>
+                        <option value="agresion">Agresión</option>
+                        <option value="violencia familiar">Violencia familiar</option>
+                        <option value="sospecha">Sospecha</option>
+                        <option value="emergencia medica">Emergencia médica</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">¿Dónde ocurrió? (Descripción corta)<span class="required">*</span></label>
+                    <input type="text" name="direccion" class="form-input" placeholder="Ej: Por av Primavera, frente al kfc" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Descripción rápida<span class="required">*</span></label>
+                    <textarea name="descripcion" class="form-textarea" placeholder="Todos los datos que ingrese serán incluidos en la denuncia formal.
+Ej: Un hombre alto encapuchado le quitó el celular a una señora en la esquina y salió corriendo hacia el parque" required></textarea>
+                    <p class="form-help">Sea lo más específico posible en su descripción, señalando detalles, fechas y cualquier otra información relevante.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Evidencias adicionales (opcional)</label>
+                    <input type="file" name="evidencias" class="form-input" multiple accept="image/*,.pdf">
+                    <p class="form-help">Adjuntar imágenes o documentos PDF nos ayudaría mucho a procesar su denuncia. Se aceptan máximo 5 archivos de 5MB cada uno.</p>
+                </div>
+            </div>
+
+            <div class="button-group" style="padding-left: 15px;">
+                <button type="submit" class="btn btn-primary">Enviar Denuncia</button>
+                <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2025 Plataforma Digital del Estado Peruano</p>
+            <p class="footer-text">Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+</body>
+</html>
